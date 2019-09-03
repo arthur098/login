@@ -26,8 +26,8 @@ public class InitialResource {
 	private AuthService service = new AuthServiceImpl();
 
 	@GET
-	public Response login(@QueryParam("usuario") String usuario, 
-			@QueryParam("senha") String senha) {
+	public Response login(@QueryParam("usuario") String usuario,
+							@QueryParam("senha") String senha) throws UnsupportedEncodingException, NoSuchAlgorithmException {
 		Usuario user = this.service.autenticar(usuario, senha);
 		Response.ResponseBuilder builder;
 

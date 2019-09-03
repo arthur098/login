@@ -1,41 +1,68 @@
 package br.com.log.persistence;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
-import javax.transaction.Transactional;
 
 public class PersistenceUnit {
 
-	@PersistenceContext(name = "login-teste")
+	private EntityManagerFactory emf;
 	private EntityManager em;
-	
-	@Transactional
+
+	public PersistenceUnit() {
+		emf = Persistence.createEntityManagerFactory("login-teste");
+		em = emf.createEntityManager();
+	}
+
 	public Object persist(Object entity) {
-		this.em.persist(entity);
+		try {
+			this.em.getTransaction().begin();
+			this.em.persist(entity);
+			this.em.getTransaction().commit();
+		} catch (PersistenceException e) {
+			this.em.getTransaction().rollback();
+		} finally {
+			this.em.close();
+		}
 		return entity;
 	}
-	
-	@Transactional
+
 	public Object merge(Object entity) {
-		this.em.merge(entity);
+		try {
+			this.em.getTransaction().begin();
+			this.em.persist(entity);
+			this.em.getTransaction().commit();
+		} catch (PersistenceException e) {
+			this.em.getTransaction().rollback();
+		} finally {
+			this.em.close();
+		}
 		return entity;
 	}
-	
-	@Transactional
-	public Object delete (Object entity) {
-		this.em.remove(entity);
+
+	public Object delete(Object entity) {
+		try {
+			this.em.getTransaction().begin();
+			this.em.persist(entity);
+			this.em.getTransaction().commit();
+		} catch (PersistenceException e) {
+			this.em.getTransaction().rollback();
+		} finally {
+			this.em.close();
+		}
 		return entity;
 	}
-	
+
 	public Object find(Class<?> classe, Long id) {
 		return this.em.find(classe, id);
 	}
-	
+
 	public Query createTypedQuery(String query, Class<?> classe) {
 		return this.em.createQuery(query, classe);
 	}
-	
+
 	public Query createNativeQuery(String query) {
 		return this.em.createNativeQuery(query);
 	}

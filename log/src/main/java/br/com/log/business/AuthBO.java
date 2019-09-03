@@ -22,8 +22,21 @@ public class AuthBO {
 		
 		usuario.setSaltPassword(salt);
 		usuario.setPassword(DigestUtil.encrypt(senhaSalted));
-
-		return null;
+		
+		return this.dao.registrar(usuario);
+	}
+	
+	public Usuario autenticar(String username, String senha) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+		this.dao = new UsuarioDAO();
+		Usuario usuario = this.dao.getUsuarioByUsername(username);
+		
+		if(usuario != null) {
+			String senhaSaltedEncrypted = DigestUtil.encrypt(senha + usuario.getSaltPassword());
+			
+			usuario = this.dao.autentica(usuario.getUsername(), senhaSaltedEncrypted);	
+		}
+		
+		return usuario;
 	}
 
 }

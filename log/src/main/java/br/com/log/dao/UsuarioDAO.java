@@ -8,7 +8,7 @@ import br.com.log.persistence.PersistenceUnit;
 
 public class UsuarioDAO {
 
-	private PersistenceUnit dao;
+	private PersistenceUnit dao = new PersistenceUnit();
 	
 	public Usuario autentica(String usuario, String password) {
 		StringBuilder hql = new StringBuilder();
@@ -37,7 +37,21 @@ public class UsuarioDAO {
 	}
 
 	public Usuario registrar(Usuario usuario) {
-		this.dao.persist(usuario);
-		return null;
+		return (Usuario) this.dao.persist(usuario);
+	}
+
+	public Usuario getUsuarioByUsername(String usuario) {
+		StringBuilder hql = new StringBuilder();
+		
+		hql.append("FROM Usuario u ");
+		hql.append("WHERE u.username = :usuario");
+		
+		Query typedQuery = this.dao.createTypedQuery(hql.toString(), Usuario.class);
+		typedQuery.setParameter("usuario", usuario);
+		try {
+			return (Usuario) typedQuery.getSingleResult();	
+		} catch(NoResultException e) {
+			return null;
+		}
 	}
 }
