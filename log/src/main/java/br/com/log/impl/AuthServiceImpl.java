@@ -12,7 +12,7 @@ import br.com.log.facade.AuthService;
 public class AuthServiceImpl implements AuthService {
 
 	@Inject
-	private AuthBO bo = new AuthBO();
+	private AuthBO bo;
 
 	@Override
 	public Usuario autenticar(String usuario, String senha) throws UnsupportedEncodingException, NoSuchAlgorithmException {

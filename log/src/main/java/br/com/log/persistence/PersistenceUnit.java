@@ -1,57 +1,30 @@
 package br.com.log.persistence;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceException;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 
 public class PersistenceUnit {
 
-	private EntityManagerFactory emf;
+	@PersistenceContext(name = "login-teste")
 	private EntityManager em;
 
-	public PersistenceUnit() {
-		emf = Persistence.createEntityManagerFactory("login-teste");
-		em = emf.createEntityManager();
-	}
-
+	@Transactional
 	public Object persist(Object entity) {
-		try {
-			this.em.getTransaction().begin();
-			this.em.persist(entity);
-			this.em.getTransaction().commit();
-		} catch (PersistenceException e) {
-			this.em.getTransaction().rollback();
-		} finally {
-			this.em.close();
-		}
+		this.em.persist(entity);
 		return entity;
 	}
-
+	
+	@Transactional
 	public Object merge(Object entity) {
-		try {
-			this.em.getTransaction().begin();
-			this.em.persist(entity);
-			this.em.getTransaction().commit();
-		} catch (PersistenceException e) {
-			this.em.getTransaction().rollback();
-		} finally {
-			this.em.close();
-		}
+		this.em.merge(entity);
 		return entity;
 	}
-
+	
+	@Transactional
 	public Object delete(Object entity) {
-		try {
-			this.em.getTransaction().begin();
-			this.em.persist(entity);
-			this.em.getTransaction().commit();
-		} catch (PersistenceException e) {
-			this.em.getTransaction().rollback();
-		} finally {
-			this.em.close();
-		}
+		this.em.remove(entity);
 		return entity;
 	}
 

@@ -15,7 +15,6 @@ import javax.ws.rs.core.Response;
 
 import br.com.log.entidade.Usuario;
 import br.com.log.facade.AuthService;
-import br.com.log.impl.AuthServiceImpl;
 
 @Path("access-control")
 @Produces(MediaType.APPLICATION_JSON)
@@ -23,11 +22,11 @@ import br.com.log.impl.AuthServiceImpl;
 public class InitialResource {
 
 	@Inject
-	private AuthService service = new AuthServiceImpl();
+	private AuthService service;
 
 	@GET
-	public Response login(@QueryParam("usuario") String usuario,
-							@QueryParam("senha") String senha) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+	public Response login(@QueryParam("usuario") String usuario, @QueryParam("senha") String senha)
+			throws UnsupportedEncodingException, NoSuchAlgorithmException {
 		Usuario user = this.service.autenticar(usuario, senha);
 		Response.ResponseBuilder builder;
 
