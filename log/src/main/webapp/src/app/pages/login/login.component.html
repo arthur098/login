@@ -1,0 +1,23 @@
+<div class="container">
+  <mat-card>
+    <form [formGroup]="formulario">
+      <div class="row">
+        <div class="col">
+          <mat-form-field>
+            <mat-label>Usuario:</mat-label>
+            <input matInput type="text" formControlName="usuario">
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <mat-label>Senha:</mat-label>
+            <input matInput type="password" formControlName="senha">
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <button mat-raised-button (click)="logar();">Logar</button>
+        </div>
+      </div>
+    </form>
+  </mat-card>
+</div>

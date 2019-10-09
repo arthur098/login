@@ -13,6 +13,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import br.com.log.bean.UserBean;
 import br.com.log.entidade.Usuario;
 import br.com.log.facade.AuthService;
 
@@ -27,13 +28,13 @@ public class InitialResource {
 	@GET
 	public Response login(@QueryParam("usuario") String usuario, @QueryParam("senha") String senha)
 			throws UnsupportedEncodingException, NoSuchAlgorithmException {
-		Usuario user = this.service.autenticar(usuario, senha);
+		UserBean user = this.service.autenticar(usuario, senha);
 		Response.ResponseBuilder builder;
 
 		if (user == null) {
 			builder = Response.status(Response.Status.UNAUTHORIZED);
 		} else {
-			builder = Response.ok();
+			builder = Response.ok(user);
 		}
 
 		return builder.build();
@@ -42,6 +43,15 @@ public class InitialResource {
 	@POST
 	@Path("registrar")
 	public Response registrar(Usuario usuario) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-		return Response.ok(this.service.registrar(usuario)).build();
+		Response.ResponseBuilder builder;
+		Usuario user = this.service.registrar(usuario);
+
+		if (user == null) {
+			builder = Response.status(Response.Status.CONFLICT);
+		} else {
+			builder = Response.ok(user);
+		}
+
+		return builder.build();
 	}
 }

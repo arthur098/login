@@ -1,0 +1,56 @@
+<div class="container">
+  <mat-card>
+    <form [formGroup]="formulario">
+      <div class="row">
+        <div class="col">
+          <mat-form-field>
+            <mat-label>Usuário</mat-label>
+            <input matInput type="text" formControlName="username" required>
+          </mat-form-field>
+          <br/>
+          <mat-form-field>
+            <mat-label>Senha</mat-label>
+            <input matInput type="password" formControlName="password" required>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field>
+            <mat-label>Nome</mat-label>
+            <input type="text" matInput [formControl]="formulario.controls['pessoa'].controls['nome']" required>
+          </mat-form-field>
+          <br/>
+          <mat-form-field>
+            <mat-label>Sobrenome</mat-label>
+            <input type="text" matInput [formControl]="formulario.controls['pessoa'].controls['sobrenome']" required>
+          </mat-form-field>
+          <br/>
+          <mat-form-field>
+            <mat-label>CPF/CNPJ</mat-label>
+            <input type="text" matInput [formControl]="formulario.controls['pessoa'].controls['cpfCnpj']" required>
+          </mat-form-field>
+          <br/>
+          <mat-form-field>
+            <mat-label>Sexo</mat-label>
+            <mat-select matInput [formControl]="formulario.controls['pessoa'].controls['sexo']" required>
+              <mat-option>Selecione...</mat-option>
+              <mat-option [value]="0">Masculino</mat-option>
+              <mat-option [value]="1">Feminino</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button mat-raised-button (click)="registrar();">
+            Registrar
+          </button>
+        </div>
+      </div>
+    </form>
+  </mat-card>
+</div>

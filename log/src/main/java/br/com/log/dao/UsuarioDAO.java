@@ -46,7 +46,7 @@ public class UsuarioDAO {
 		StringBuilder hql = new StringBuilder();
 
 		hql.append("FROM Usuario u ");
-		hql.append("WHERE u.username = :usuario");
+		hql.append("WHERE lower(u.username) = lower(:usuario)");
 
 		Query typedQuery = this.dao.createTypedQuery(hql.toString(), Usuario.class);
 		typedQuery.setParameter("usuario", usuario);

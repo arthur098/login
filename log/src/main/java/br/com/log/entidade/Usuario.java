@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -28,6 +30,10 @@ public class Usuario {
 	
 	@Column(name = "SALT_PASSWORD", length = 255, nullable = false)
 	private String saltPassword;
+	
+	@OneToOne
+	@JoinColumn(name = "ID_PESSOA")
+	private Pessoa pessoa;
 
 	public Long getId() {
 		return id;
@@ -59,6 +65,14 @@ public class Usuario {
 
 	public void setSaltPassword(String saltPassword) {
 		this.saltPassword = saltPassword;
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	@Override
