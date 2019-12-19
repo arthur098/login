@@ -8,11 +8,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RollTopButtonComponent } from './@core/roll-top-button/roll-top-button.component';
 import { MaterialDesignModule } from './@core/material-design/material-design.module';
+import { HeaderComponent } from './pages/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RollTopButtonComponent
+    RollTopButtonComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

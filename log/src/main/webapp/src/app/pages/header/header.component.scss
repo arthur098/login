@@ -1,0 +1,27 @@
+@charset 'utf-8';
+
+header {
+  text-transform: uppercase;
+}
+
+header > nav > ul {
+  list-style-type: none;
+  display: inline-flex;
+}
+
+a {
+  color: black;
+}
+
+header > nav > ul > li > a {
+  border-bottom: 0px solid #0078f2;
+  transition-duration: 0.2s;
+}
+
+header > nav > ul > li > a:hover {
+  border-bottom: 4px solid #0078f2;
+}
+
+.active {
+  border-bottom: 4px solid #0078f2;
+}
